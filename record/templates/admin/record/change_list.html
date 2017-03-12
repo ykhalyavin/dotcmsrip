@@ -1,0 +1,12 @@
+{% extends "admin/change_list.html" %}
+{% load i18n admin_static %}
+
+{% block result_list %}
+    {% if cl.formset and cl.result_count %}
+        <p class="paginator" style="border-top: 0;">
+            <input type="submit" value="{% trans 'Save' %}" class="default" name="_save" />
+        </p>
+    {% endif %}
+
+    {{ block.super }}
+{% endblock %}
