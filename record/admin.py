@@ -42,11 +42,15 @@ class Base(admin.ModelAdmin):
 
         super().save_model(request, obj, form, change)
 
-        out = os.path.join('/tmp', os.path.basename(obj.original_file.name))
+        out = os.path.join(obj.server_path,
+                           os.path.basename(obj.original_file.name))
+
+        if not os.path.exists(out):
+            return
         if os.path.exists(out) and os.path.getsize(out):
             return
 
-        shutil.move(obj.original_file.name, '/tmp')
+        shutil.move(obj.original_file.name, obj.server_path)
 
 
 class EmptyFilesAdmin(Base):
